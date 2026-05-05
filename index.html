@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddhi Gupta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #000;
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      overflow: hidden;
+    }
+
+    /* ── subtle star field ── */
+    #stars {
+      position: fixed; inset: 0;
+      z-index: 0;
+    }
+
+    /* ── centre stage ── */
+    .stage {
+      position: fixed; inset: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8%;
+      text-align: center;
+      gap: 0;
+    }
+
+    /* ── quote line ── */
+    .quote {
+      font-size: clamp(1.45rem, 2.6vw, 2.2rem);
+      font-weight: 400;
+      color: #ede8d8;
+      letter-spacing: 0.025em;
+      line-height: 1.5;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    /* typewriter underscore cursor */
+    .tw-cur {
+      display: inline;
+      font-weight: 400;
+      color: rgba(237, 232, 216, 0.7);
+      animation: blink 0.65s step-end infinite;
+    }
+    .tw-cur.off { display: none; }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ── attributions ── */
+    .attr {
+      margin-top: 1.2rem;
+      font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(237, 232, 216, 0.45);
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 2s ease, transform 2s ease;
+    }
+
+    /* ── button ── */
+    .tour {
+      display: inline-block;
+      margin-top: 5.5rem;
+      padding: 0.72rem 2.4rem;
+      border: 1px solid rgba(210, 175, 110, 0.38);
+      border-radius: 50px;
+      background: rgba(210, 175, 110, 0.05);
+      color: rgba(218, 185, 120, 0.72);
+      font-family: 'Courier Prime', monospace;
+      font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1.4s ease, transform 1.4s ease,
+                  color 0.4s, border-color 0.4s, background 0.4s,
+                  box-shadow 0.4s;
+    }
+    .tour:hover {
+      color: rgba(230, 200, 140, 1);
+      border-color: rgba(210, 175, 110, 0.75);
+      background: rgba(210, 175, 110, 0.1);
+      box-shadow: 0 0 22px rgba(210, 175, 110, 0.12),
+                  inset 0 0 14px rgba(210, 175, 110, 0.05);
+    }
+
+    @media (max-width: 600px) {
+      .stage { padding: 0 7%; }
+    }
+
+    /* ── warp launch overlay — pure black fade ── */
+    #warp-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<div id="warp-overlay"></div>
+
+<div class="stage">
+  <p class="quote" id="quote">
+    <span id="tw"></span><span class="tw-cur" id="cur">_</span>
+  </p>
+  <p class="attr"  id="attr1">— steve jobs</p>
+  <p class="attr"  id="attr2">— riddhi gupta</p>
+  <a  class="tour" id="tour" href="wormhole.html">take a tour of my space</a>
+</div>
+
+<script>
+/* ── very sparse, faint star field ── */
+const canvas = document.getElementById('stars');
+const ctx    = canvas.getContext('2d');
+let   stars  = [];
+
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', () => { resize(); buildStars(); });
+
+function buildStars() {
+  stars = [];
+  const n = Math.floor((canvas.width * canvas.height) / 5500); /* sparse */
+  for (let i = 0; i < n; i++) {
+    stars.push({
+      x:  Math.random() * canvas.width,
+      y:  Math.random() * canvas.height,
+      r:  Math.random() * 0.8 + 0.1,
+      a:  Math.random() * 0.4 + 0.05,
+      da: (Math.random() * 0.002 + 0.0005) * (Math.random() > 0.5 ? 1 : -1)
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const s of stars) {
+    s.a += s.da;
+    if (s.a > 0.5 || s.a < 0.04) s.da *= -1;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0.04, s.a);
+    ctx.fillStyle   = '#ede8d8';
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+  requestAnimationFrame(drawStars);
+}
+
+buildStars();
+drawStars();
+
+
+/* ── animation sequence ── */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function fadeIn(el, { delay = 0 } = {}) {
+  return new Promise(r => {
+    setTimeout(() => {
+      el.style.opacity   = '1';
+      el.style.transform = 'translateY(0)';
+      setTimeout(r, 2000); /* match transition duration */
+    }, delay);
+  });
+}
+
+async function typewrite(text, speed = 105) {
+  const el  = document.getElementById('tw');
+  el.textContent = '';
+  for (const ch of text) {
+    el.textContent += ch;
+    const pause = /[.,!?—]/.test(ch)
+      ? speed * 5 + Math.random() * 100
+      : speed + (Math.random() * 24 - 12);
+    await sleep(pause);
+  }
+}
+
+async function run() {
+  /* 1. quote container fades in */
+  await sleep(500);
+  await fadeIn(document.getElementById('quote'));
+
+  /* 2. typewriter types the quote */
+  await sleep(100);
+  await typewrite("I want to put a ding in the universe.");
+
+  /* 3. cursor disappears */
+  document.getElementById('cur').classList.add('off');
+  await sleep(1800);
+
+  /* 4. "— steve jobs" fades in */
+  await fadeIn(document.getElementById('attr1'));
+  await sleep(1400);
+
+  /* 5. "— riddhi gupta" fades in */
+  await fadeIn(document.getElementById('attr2'));
+  await sleep(1800);
+
+  /* 6. button fades in */
+  await fadeIn(document.getElementById('tour'));
+}
+
+run();
+
+/* ── button click: clean fade to black, tunnel entry lives in wormhole.html ── */
+let warping = false;
+
+document.getElementById('tour').addEventListener('click', function(e) {
+  e.preventDefault();
+  if (warping) return;
+  warping = true;
+
+  const stage   = document.querySelector('.stage');
+  const overlay = document.getElementById('warp-overlay');
+
+  stage.style.transition = 'opacity 0.22s ease';
+  stage.style.opacity    = '0';
+
+  setTimeout(() => {
+    overlay.style.transition = 'opacity 0.38s ease';
+    overlay.style.opacity    = '1';
+    setTimeout(() => { window.location.href = 'wormhole.html'; }, 400);
+  }, 140);
+});
+</script>
+</body>
+</html>

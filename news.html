@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Release — Riddhi Gupta</title>
+  <meta name="description" content="News and press coverage about Riddhi Gupta and the Humanoid Robot Club at Purdue University.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="nav-logo">Riddhi<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="news.html" class="active">News Release</a></li>
+      <li><a href="hrc.html">Humanoid Robot Club</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="mobileNav">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="projects.html" onclick="closeMenu()">Projects</a>
+    <a href="news.html" onclick="closeMenu()">News Release</a>
+    <a href="hrc.html" onclick="closeMenu()">Humanoid Robot Club</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-top">
+    <div class="page-hero">
+      <p class="section-label">Press & Media</p>
+      <h1>News Release</h1>
+      <p>Coverage of Riddhi Gupta, the Humanoid Robot Club, and the latest in student-led robotics innovation at Purdue.</p>
+    </div>
+  </div>
+
+  <!-- Featured News -->
+  <section>
+    <p class="section-label">Featured Coverage</p>
+    <div class="divider"></div>
+    <h2 class="section-title" style="margin-bottom:3rem;">In the News</h2>
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-img">
+          <!-- Replace with: <img src="images/news1.jpg" alt="News Article"> -->
+          <span>📰</span>
+        </div>
+        <div class="news-body">
+          <div class="news-date">2024</div>
+          <h3>Purdue Students Build First Humanoid Robot for Space Exploration</h3>
+          <p>The newly founded Humanoid Robot Club at Purdue University is making waves — growing to 800+ members in just 6 months with support from AMD, Autodesk, and 8 faculty advisors.</p>
+          <a href="#" class="news-link">Read Article <i class="fa-solid fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">
+          <!-- Replace with: <img src="images/news2.jpg" alt="News Article"> -->
+          <span>🤖</span>
+        </div>
+        <div class="news-body">
+          <div class="news-date">2024</div>
+          <h3>Riddhi Gupta: Co-Founding a 800-Member Robotics Club From Scratch</h3>
+          <p>How one student's passion for humanoid robots turned into Purdue's fastest-growing engineering club, earning recognition from university leadership.</p>
+          <a href="#" class="news-link">Read Article <i class="fa-solid fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">
+          <!-- Replace with: <img src="images/news3.jpg" alt="News Article"> -->
+          <span>🚀</span>
+        </div>
+        <div class="news-body">
+          <div class="news-date">2024</div>
+          <h3>Student-Built Robots and Space: The Intersection of Engineering and Exploration</h3>
+          <p>Purdue's Humanoid Robot Club is targeting space exploration applications — a bold mission that has attracted corporate partners and faculty alike.</p>
+          <a href="#" class="news-link">Read Article <i class="fa-solid fa-arrow-right" style="font-size:0.75rem;"></i></a>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:2.5rem;font-size:0.85rem;color:var(--text-muted);font-style:italic;">
+      Replace placeholders above with actual news articles and links as coverage is published.
+    </p>
+  </section>
+
+  <!-- Press Contact -->
+  <section class="section-alt" style="text-align:center;">
+    <p class="section-label">Media Inquiries</p>
+    <div class="divider" style="margin:0 auto 1rem;"></div>
+    <h2 class="section-title">Press Contact</h2>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:500px;margin:0 auto 2rem;line-height:1.7;">
+      For press inquiries, interviews, or media coverage of the Humanoid Robot Club or my projects, reach out directly.
+    </p>
+    <a href="mailto:riddhigupta2701@gmail.com" class="btn btn-primary" style="font-size:1rem;padding:0.9rem 2.2rem;">
+      <i class="fa-solid fa-envelope"></i> riddhigupta2701@gmail.com
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">Riddhi<span>.</span></div>
+        <p>Always looking forward to working on new and exciting projects.</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/in/theriddhigupta/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-solid fa-graduation-cap"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="news.html">News Release</a></li>
+          <li><a href="hrc.html">Humanoid Robot Club</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:riddhigupta2701@gmail.com">riddhigupta2701@gmail.com</a></li>
+          <li><a href="https://linkedin.com/in/theriddhigupta/" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Riddhi Gupta. All rights reserved.</span>
+      <span>Computer Engineering @ Purdue University</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

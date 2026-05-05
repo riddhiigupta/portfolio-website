@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Riddhi Gupta</title>
+  <meta name="description" content="Projects by Riddhi Gupta — robotics, hardware, and software engineering.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="nav-logo">Riddhi<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="news.html">News Release</a></li>
+      <li><a href="hrc.html">Humanoid Robot Club</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="mobileNav">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="projects.html" onclick="closeMenu()">Projects</a>
+    <a href="news.html" onclick="closeMenu()">News Release</a>
+    <a href="hrc.html" onclick="closeMenu()">Humanoid Robot Club</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-top">
+    <div class="page-hero">
+      <p class="section-label">Portfolio</p>
+      <h1>My Projects</h1>
+      <p>From solar-powered water purification to walking robots — here's what I've built.</p>
+    </div>
+  </div>
+
+  <!-- Current Project -->
+  <section>
+    <p class="section-label">Current Build</p>
+    <div class="divider"></div>
+    <h2 class="section-title" style="margin-bottom:2rem;">What I'm Working On Now</h2>
+    <div class="featured-project">
+      <div class="featured-content">
+        <div class="featured-badge">🔧 In Progress</div>
+        <h3>Walking Robot Dog</h3>
+        <p>Building a lightweight robot dog with 4 degrees of freedom per leg. Each leg uses servo motors with inverse kinematics to achieve smooth, stable gaits. The platform is designed to be low-cost and modular for future research.</p>
+        <p style="margin-top:1rem;font-size:0.9rem;opacity:0.6;">Technologies used in this build:</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;">
+          <span class="tag tag-dark">Arduino</span>
+          <span class="tag tag-dark">Servo Motors</span>
+          <span class="tag tag-dark">IMU Sensors</span>
+          <span class="tag tag-dark">4-DoF per Leg</span>
+          <span class="tag tag-dark">Inverse Kinematics</span>
+          <span class="tag tag-dark">Custom PCB</span>
+          <span class="tag tag-dark">3D Printed Parts</span>
+        </div>
+      </div>
+      <div class="featured-img">
+        <!-- Replace with: <img src="images/robot-dog.jpg" alt="Walking Robot Dog"> -->
+        <span style="font-size:6rem;">🤖</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Past Projects -->
+  <section class="section-alt">
+    <p class="section-label">Completed Projects</p>
+    <div class="divider"></div>
+    <h2 class="section-title" style="margin-bottom:3rem;">Featured Projects</h2>
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">
+          <!-- Replace with: <img src="images/solar-bottle.jpg" alt="Self-Sterilizing Solar Bottle"> -->
+          <span style="font-size:3.5rem;">☀️</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Sustainability &bull; Hardware</div>
+          <h3>Self-Sterilizing Solar Bottle</h3>
+          <p>Uses a solar panel and UV LEDs to sterilize microplastics via photocatalytic reactions. Designed to provide clean water in off-grid environments without any external power source.</p>
+          <div class="project-footer">
+            <span class="project-tag">UV LEDs</span>
+            <span class="project-tag">Solar Panel</span>
+            <span class="project-tag">Photocatalysis</span>
+            <span class="project-tag">Circuit Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-img" style="background:linear-gradient(135deg,#fef9c3,#fde68a);">
+          <!-- Replace with: <img src="images/spice-box.jpg" alt="Smart Spice Box"> -->
+          <span style="font-size:3.5rem;">🧂</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">IoT &bull; Software</div>
+          <h3>Smart Spice Box</h3>
+          <p>Tells the required spices for 999 dishes — perfect for beginner cooks. Uses a database of recipes and smart recommendations to guide users through the exact spices needed for any dish.</p>
+          <div class="project-footer">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Database</span>
+            <span class="project-tag">Embedded</span>
+            <span class="project-tag">UI Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-img" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd);">
+          <!-- Replace with: <img src="images/humanoid-legs.jpg" alt="Mini Humanoid Legs"> -->
+          <span style="font-size:3.5rem;">🦿</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Robotics &bull; Embedded</div>
+          <h3>Mini Humanoid Legs</h3>
+          <p>Walks and is controlled by an Arduino Uno with a custom shield and IMU sensors. Demonstrates stable bipedal locomotion with real-time balance correction using sensor feedback.</p>
+          <div class="project-footer">
+            <span class="project-tag">Arduino Uno</span>
+            <span class="project-tag">IMU Sensors</span>
+            <span class="project-tag">Custom Shield</span>
+            <span class="project-tag">Servo Control</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div class="project-img" style="background:linear-gradient(135deg,#fef3c7,#fcd34d);">
+          <!-- Replace with: <img src="images/lamp.jpg" alt="Lamp for Shared Spaces"> -->
+          <span style="font-size:3.5rem;">💡</span>
+        </div>
+        <div class="project-body">
+          <div class="project-category">Hardware &bull; Design</div>
+          <h3>Lamp for Shared Spaces</h3>
+          <p>Amber light in the middle, yellow on top and bottom — specifically designed so you can work while your roommate sleeps. Optimized wavelengths to minimize sleep disruption for others.</p>
+          <div class="project-footer">
+            <span class="project-tag">LED Circuits</span>
+            <span class="project-tag">Amber Light</span>
+            <span class="project-tag">PCB Design</span>
+            <span class="project-tag">Ergonomics</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">Riddhi<span>.</span></div>
+        <p>Always looking forward to working on new and exciting projects. Reach out to me on LinkedIn or shoot me an email!</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/in/theriddhigupta/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-solid fa-graduation-cap"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="news.html">News Release</a></li>
+          <li><a href="hrc.html">Humanoid Robot Club</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:riddhigupta2701@gmail.com">riddhigupta2701@gmail.com</a></li>
+          <li><a href="https://linkedin.com/in/theriddhigupta/" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Riddhi Gupta. All rights reserved.</span>
+      <span>Computer Engineering @ Purdue University</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

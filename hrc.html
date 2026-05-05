@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Humanoid Robot Club — Riddhi Gupta</title>
+  <meta name="description" content="Humanoid Robot Club at Purdue — co-founded by Riddhi Gupta. Building a walking humanoid robot for space exploration.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .hrc-about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hrc-img {
+      height: 380px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(168,85,247,0.1));
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hrc-img img { width:100%; height:100%; object-fit:cover; border-radius:20px; }
+    .hrc-milestone {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .hrc-milestone-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .hrc-milestone h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.2rem;
+    }
+    .hrc-milestone p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .partner-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .partner-card:hover {
+      background: rgba(124,58,237,0.15);
+      border-color: rgba(124,58,237,0.4);
+    }
+    .partner-card .partner-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+    @media (max-width: 900px) {
+      .hrc-about-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="nav-logo">Riddhi<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="news.html">News Release</a></li>
+      <li><a href="hrc.html" class="active">Humanoid Robot Club</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="mobileNav">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="projects.html" onclick="closeMenu()">Projects</a>
+    <a href="news.html" onclick="closeMenu()">News Release</a>
+    <a href="hrc.html" onclick="closeMenu()">Humanoid Robot Club</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- HRC Hero -->
+  <div class="page-top">
+    <div class="hrc-hero">
+      <p class="section-label">Purdue University</p>
+      <h1>Humanoid Robot Club</h1>
+      <p>The first-ever student group building a walking humanoid robot for space exploration. Founded in 2024, growing fast.</p>
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-users"></i> Join the Club</a>
+        <a href="https://linkedin.com/in/theriddhigupta/" target="_blank" class="btn btn-outline"><i class="fa-brands fa-linkedin"></i> Follow Updates</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">800+</div>
+      <div class="stat-label">Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Faculty Advisors</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Corporate Partners</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Months to Build This</div>
+    </div>
+  </div>
+
+  <!-- About HRC -->
+  <section>
+    <div class="hrc-about-grid">
+      <div>
+        <p class="section-label">Who We Are</p>
+        <div class="divider"></div>
+        <h2 class="section-title">Building the Future of<br>Humanoid Robotics</h2>
+        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;">
+          I'm the co-founder and VP of the Humanoid Robot Club at Purdue, and we're the first-ever student group building a walking humanoid robot for space exploration. With 800+ members, 8 faculty advisors, and 10+ corporate partners like AMD and Autodesk, we've gotten appreciation from the entire Purdue leadership — all in just 6 months!
+        </p>
+        <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;">
+          Our mission is to push the boundaries of what student-built systems can do, and to give Purdue students hands-on experience with cutting-edge humanoid robotics technology.
+        </p>
+      </div>
+      <div class="hrc-img">
+        <!-- Replace with: <img src="images/hrc-team.jpg" alt="HRC Team"> -->
+        <div style="text-align:center;color:rgba(124,58,237,0.6);">
+          <div style="font-size:6rem;">🤖</div>
+          <p style="font-size:0.85rem;margin-top:0.5rem;font-weight:600;color:rgba(124,58,237,0.7);">Add team photo here</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Milestones -->
+  <section class="section-alt">
+    <p class="section-label">What We've Achieved</p>
+    <div class="divider"></div>
+    <h2 class="section-title" style="margin-bottom:3rem;">Key Milestones</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;">
+      <div>
+        <div class="hrc-milestone">
+          <div class="hrc-milestone-icon">🚀</div>
+          <div>
+            <h4>Founded in 6 Months</h4>
+            <p>Grew from zero to 800+ members and full club structure in just 6 months — a record pace for Purdue student orgs.</p>
+          </div>
+        </div>
+        <div class="hrc-milestone">
+          <div class="hrc-milestone-icon">🏢</div>
+          <div>
+            <h4>10+ Corporate Partners</h4>
+            <p>Secured partnerships with companies including AMD and Autodesk, providing funding, software, and mentorship.</p>
+          </div>
+        </div>
+        <div class="hrc-milestone">
+          <div class="hrc-milestone-icon">👩‍🏫</div>
+          <div>
+            <h4>8 Faculty Advisors</h4>
+            <p>Backed by 8 faculty advisors across ECE, ME, CS, and aerospace departments at Purdue.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="hrc-milestone">
+          <div class="hrc-milestone-icon">🌌</div>
+          <div>
+            <h4>Space Exploration Focus</h4>
+            <p>First student group targeting space applications — designing a humanoid that can operate in extraterrestrial environments.</p>
+          </div>
+        </div>
+        <div class="hrc-milestone">
+          <div class="hrc-milestone-icon">🎓</div>
+          <div>
+            <h4>Purdue Leadership Recognition</h4>
+            <p>Received appreciation from the entire Purdue University leadership team for our rapid growth and mission.</p>
+          </div>
+        </div>
+        <div class="hrc-milestone">
+          <div class="hrc-milestone-icon">🦾</div>
+          <div>
+            <h4>Walking Humanoid in Development</h4>
+            <p>Actively building a full walking humanoid robot — from PCB design and embedded systems to mechanical structure and locomotion algorithms.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section class="section-dark">
+    <p class="section-label">Our Partners</p>
+    <div class="divider" style="background:var(--accent2);"></div>
+    <h2 class="section-title" style="margin-bottom:0.5rem;">Corporate Partners</h2>
+    <p class="section-subtitle">Industry leaders supporting our mission to build the next generation of humanoid robots.</p>
+    <div class="partner-grid">
+      <div class="partner-card"><span class="partner-icon">💻</span>AMD</div>
+      <div class="partner-card"><span class="partner-icon">🖥️</span>Autodesk</div>
+      <div class="partner-card"><span class="partner-icon">🤝</span>Partner 3</div>
+      <div class="partner-card"><span class="partner-icon">🤝</span>Partner 4</div>
+      <div class="partner-card"><span class="partner-icon">🤝</span>Partner 5</div>
+      <div class="partner-card"><span class="partner-icon">🤝</span>And More...</div>
+    </div>
+    <p style="text-align:center;margin-top:2rem;font-size:0.85rem;color:rgba(255,255,255,0.4);">
+      Replace partner placeholders with actual partner names/logos
+    </p>
+  </section>
+
+  <!-- Join CTA -->
+  <section style="text-align:center;">
+    <p class="section-label">Get Involved</p>
+    <div class="divider" style="margin:0 auto 1rem;"></div>
+    <h2 class="section-title">Want to Join?</h2>
+    <p style="color:var(--text-muted);font-size:1.05rem;max-width:520px;margin:0 auto 2.5rem;line-height:1.7;">
+      Whether you're into mechanical engineering, embedded systems, software, or just want to be part of something historic — we'd love to have you.
+    </p>
+    <a href="contact.html" class="btn btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">
+      <i class="fa-solid fa-paper-plane"></i> Reach Out to Join
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">Riddhi<span>.</span></div>
+        <p>Always looking forward to working on new and exciting projects. Reach out to discuss collaboration opportunities!</p>
+        <div class="footer-social">
+          <a href="https://linkedin.com/in/theriddhigupta/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-solid fa-graduation-cap"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="news.html">News Release</a></li>
+          <li><a href="hrc.html">Humanoid Robot Club</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:riddhigupta2701@gmail.com">riddhigupta2701@gmail.com</a></li>
+          <li><a href="https://linkedin.com/in/theriddhigupta/" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Riddhi Gupta. All rights reserved.</span>
+      <span>Computer Engineering @ Purdue University</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
