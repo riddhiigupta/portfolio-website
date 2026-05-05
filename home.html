@@ -251,7 +251,7 @@
       box-shadow: 0 0 22px rgba(210, 175, 110, 0.12), inset 0 0 14px rgba(210, 175, 110, 0.05);
     }
 
-    /* ── planet content card ── */
+    /* ── planet content card — matches welcome card exactly ── */
     #content-overlay {
       position: fixed; inset: 0; z-index: 110;
       display: flex; align-items: center; justify-content: center;
@@ -265,69 +265,71 @@
       max-height: 78vh;
       border: 1px solid rgba(210, 175, 110, 0.38);
       border-radius: 14px;
-      background: rgba(2, 1, 10, 0.92);
-      padding: 3.5rem 5rem;
+      background: rgba(2, 1, 10, 0.86);
+      padding: 4rem 6.5rem;
       overflow-y: auto;
       position: relative;
-      box-shadow: 0 0 80px rgba(210, 175, 110, 0.07),
-                  inset 0 0 60px rgba(0, 0, 20, 0.5);
+      box-shadow: 0 0 80px rgba(210, 175, 110, 0.05),
+                  inset 0 0 50px rgba(0, 0, 20, 0.4);
       scrollbar-width: thin;
-      scrollbar-color: rgba(210, 175, 110, 0.25) transparent;
+      scrollbar-color: rgba(210, 175, 110, 0.2) transparent;
     }
-    #content-card::-webkit-scrollbar { width: 4px; }
-    #content-card::-webkit-scrollbar-thumb { background: rgba(210, 175, 110, 0.25); border-radius: 2px; }
+    #content-card::-webkit-scrollbar { width: 3px; }
+    #content-card::-webkit-scrollbar-thumb { background: rgba(210, 175, 110, 0.2); border-radius: 2px; }
 
     #content-close {
       position: sticky; top: 0; float: right;
-      margin: -1rem -1rem 0 0;
+      margin: -0.5rem -0.5rem 0.5rem 0;
       background: none; border: none;
-      color: rgba(218, 185, 120, 0.5);
+      color: rgba(218, 185, 120, 0.45);
       font-family: 'Courier Prime', monospace;
-      font-size: 1rem; letter-spacing: 0.1em;
+      font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+      letter-spacing: 0.22em; text-transform: lowercase;
       cursor: pointer;
       transition: color 0.3s;
-      z-index: 2;
     }
     #content-close:hover { color: rgba(230, 200, 140, 1); }
 
-    /* markdown content styles */
-    #content-body { color: #ede8d8; font-family: 'Courier Prime', 'Courier New', monospace; }
+    /* markdown body — same font/color family as welcome text */
+    #content-body {
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      color: #ede8d8;
+    }
     #content-body h1 {
-      font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 700;
-      color: rgba(218, 185, 120, 0.9); letter-spacing: 0.06em;
-      text-transform: lowercase; margin-bottom: 1.6rem;
-      border-bottom: 1px solid rgba(210, 175, 110, 0.18); padding-bottom: 0.8rem;
+      font-size: clamp(0.88rem, 1.4vw, 1.05rem); font-weight: 700;
+      color: rgba(218, 185, 120, 0.82); letter-spacing: 0.14em;
+      text-transform: lowercase; margin-bottom: 1.4rem;
+      border-bottom: 1px solid rgba(210, 175, 110, 0.15); padding-bottom: 0.7rem;
     }
     #content-body h2 {
-      font-size: clamp(0.95rem, 1.6vw, 1.2rem); font-weight: 700;
-      color: rgba(218, 185, 120, 0.75); letter-spacing: 0.05em;
-      text-transform: lowercase; margin: 1.6rem 0 0.6rem;
+      font-size: clamp(0.78rem, 1.2vw, 0.92rem); font-weight: 700;
+      color: rgba(218, 185, 120, 0.7); letter-spacing: 0.12em;
+      text-transform: lowercase; margin: 1.4rem 0 0.5rem;
     }
     #content-body h3 {
-      font-size: clamp(0.85rem, 1.3vw, 1rem); font-weight: 700;
-      color: rgba(218, 185, 120, 0.65); letter-spacing: 0.04em;
-      margin: 1.2rem 0 0.4rem;
+      font-size: clamp(0.72rem, 1.1vw, 0.84rem); font-weight: 700;
+      color: rgba(218, 185, 120, 0.6); letter-spacing: 0.1em;
+      text-transform: lowercase; margin: 1rem 0 0.4rem;
     }
     #content-body p {
-      font-size: clamp(0.82rem, 1.35vw, 1rem); line-height: 1.85;
-      color: rgba(237, 232, 216, 0.82); margin-bottom: 0.9rem;
+      font-size: clamp(0.78rem, 1.3vw, 0.92rem); font-weight: 400;
+      line-height: 1.78; letter-spacing: 0.025em;
+      color: rgba(237, 232, 216, 0.82); margin-bottom: 0.75rem;
     }
     #content-body ul, #content-body ol {
-      padding-left: 1.6rem; margin-bottom: 0.9rem;
+      padding-left: 1.4rem; margin-bottom: 0.75rem;
     }
     #content-body li {
-      font-size: clamp(0.82rem, 1.35vw, 1rem); line-height: 1.8;
-      color: rgba(237, 232, 216, 0.82); margin-bottom: 0.3rem;
+      font-size: clamp(0.78rem, 1.3vw, 0.92rem); font-weight: 400;
+      line-height: 1.75; letter-spacing: 0.025em;
+      color: rgba(237, 232, 216, 0.82); margin-bottom: 0.25rem;
     }
-    #content-body a {
-      color: rgba(218, 185, 120, 0.85); text-underline-offset: 3px;
-    }
+    #content-body a { color: rgba(218, 185, 120, 0.8); text-underline-offset: 3px; }
     #content-body a:hover { color: rgba(230, 200, 140, 1); }
-    #content-body strong { color: rgba(237, 232, 216, 1); }
-    #content-body em { color: rgba(237, 232, 216, 0.7); }
+    #content-body strong { color: rgba(237, 232, 216, 0.95); }
+    #content-body em { color: rgba(237, 232, 216, 0.65); font-style: italic; }
     #content-body hr {
-      border: none; border-top: 1px solid rgba(210, 175, 110, 0.15);
-      margin: 1.4rem 0;
+      border: none; border-top: 1px solid rgba(210, 175, 110, 0.12); margin: 1.2rem 0;
     }
   </style>
 </head>
