@@ -231,7 +231,7 @@
       transition: opacity 0.85s ease;
     }
     #back-btn {
-      position: absolute; bottom: 28px; right: 28px; z-index: 10;
+      position: fixed; bottom: 28px; right: 28px; z-index: 130;
       display: none;
       padding: 0.72rem 2.4rem;
       border: 1px solid rgba(210, 175, 110, 0.38);
@@ -258,10 +258,9 @@
       opacity: 0; pointer-events: none;
       transition: opacity 0.7s ease;
     }
-    #content-overlay.visible { opacity: 1; }
+    #content-overlay.visible { opacity: 1; pointer-events: auto; }
 
     #content-card {
-      pointer-events: auto;
       width: 75%;
       max-height: 78vh;
       border: 1px solid rgba(210, 175, 110, 0.38);
@@ -277,19 +276,6 @@
     }
     #content-card::-webkit-scrollbar { width: 3px; }
     #content-card::-webkit-scrollbar-thumb { background: rgba(210, 175, 110, 0.2); border-radius: 2px; }
-
-    #content-close {
-      position: sticky; top: 0; float: right;
-      margin: -0.5rem -0.5rem 0.5rem 0;
-      background: none; border: none;
-      color: rgba(218, 185, 120, 0.45);
-      font-family: 'Courier Prime', monospace;
-      font-size: clamp(0.65rem, 1.1vw, 0.78rem);
-      letter-spacing: 0.22em; text-transform: lowercase;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-    #content-close:hover { color: rgba(230, 200, 140, 1); }
 
     /* markdown body — same font/color family as welcome text */
     #content-body {
@@ -361,15 +347,15 @@
 <div id="planet-overlay">
   <canvas id="turb-canvas"></canvas>
   <img id="dest-img" src="" alt="">
-  <button id="back-btn">← back to space</button>
 </div>
 
 <div id="content-overlay">
   <div id="content-card">
-    <button id="content-close">✕ close</button>
     <div id="content-body"></div>
   </div>
 </div>
+
+<button id="back-btn">← back to space</button>
 
 <script type="importmap">
 {
@@ -850,8 +836,6 @@ function hideContentCard() {
   const overlay = document.getElementById('content-overlay');
   overlay.classList.remove('visible');
 }
-
-document.getElementById('content-close').addEventListener('click', hideContentCard);
 
 document.getElementById('back-btn').addEventListener('click', () => {
   const overlay = document.getElementById('planet-overlay');
