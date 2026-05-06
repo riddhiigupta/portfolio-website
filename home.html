@@ -716,36 +716,7 @@ renderer.domElement.addEventListener('click', e => {
   const allMeshes = planets.flatMap(pl => pl.meshes);
   const hits = raycaster.intersectObjects(allMeshes, false);
 
-  if (!hits.length) {
-    /* no planet hit — fly toward the clicked point in space */
-    const ray = raycaster.ray;
-    let target;
-
-    /* prefer intersection with y=0 orbital plane */
-    if (Math.abs(ray.direction.y) > 0.0001) {
-      const t = -ray.origin.y / ray.direction.y;
-      if (t > 4 && t < 900) {
-        target = ray.origin.clone().addScaledVector(ray.direction, t);
-      }
-    }
-    /* fallback: move along ray (looking horizontally / up at stars) */
-    if (!target) target = ray.origin.clone().addScaledVector(ray.direction, 130);
-
-    const rawDist    = camera.position.distanceTo(target);
-    const hoverDist  = Math.min(28, rawDist * 0.45);
-    const dir        = camera.position.clone().sub(target).normalize();
-    oriented = false;
-    updateCtrlBar();
-    controls.enabled = false;
-    fly = {
-      fromCam:    camera.position.clone(),
-      fromTarget: controls.target.clone(),
-      toCam:      target.clone().addScaledVector(dir, hoverDist),
-      toTarget:   target,
-      t: 0,
-    };
-    return;
-  }
+  if (!hits.length) return;
 
   const pi = meshToPlanet.get(hits[0].object);
   if (pi === undefined) return;
