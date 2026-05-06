@@ -258,9 +258,11 @@
       opacity: 0; pointer-events: none;
       transition: opacity 0.7s ease;
     }
-    #content-overlay.visible { opacity: 1; pointer-events: auto; }
+    /* overlay backdrop stays pointer-events:none so back-btn below stays clickable */
+    #content-overlay.visible { opacity: 1; }
 
     #content-card {
+      pointer-events: auto;
       width: 75%;
       max-height: 78vh;
       border: 1px solid rgba(210, 175, 110, 0.38);
