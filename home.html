@@ -1040,14 +1040,6 @@ async function buildScene() {
       meshes = [fb];
     }
 
-    /* invisible click-sphere — generous hit target so every planet is easy to click */
-    const hit = new THREE.Mesh(
-      new THREE.SphereGeometry(Math.max(p.radius * 2.2, 3.5), 12, 8),
-      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
-    );
-    group.add(hit);
-    meshes.push(hit);
-
     /* set initial position so planets don't all stack at origin */
     group.position.set(Math.cos(p.angle) * p.orbitR, 0, Math.sin(p.angle) * p.orbitR);
     scene.add(group);
