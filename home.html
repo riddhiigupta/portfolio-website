@@ -415,7 +415,6 @@ controls.dampingFactor  = 0.07;
 controls.minDistance    = 4;
 controls.maxDistance    = 1200;
 controls.zoomSpeed      = 2.2;
-controls.zoomToCursor   = true;
 controls.maxPolarAngle  = Math.PI * 0.54;
 controls.target.set(65, 0, 0);
 
@@ -713,38 +712,17 @@ function flyToPlanet(pi, destImg) {
   };
 }
 
-/* screen-space planet picker — finds nearest planet within a generous pixel radius,
-   so a click on (or near) any planet of any size at any distance lands the hit. */
-const _pp = new THREE.Vector3();
-function pickPlanetAt(clientX, clientY) {
-  const w = window.innerWidth, h = window.innerHeight;
-  let bestPi = undefined, bestScore = Infinity;
-  for (let i = 0; i < planets.length; i++) {
-    const pl = planets[i];
-    _pp.copy(pl.group.position).project(camera);
-    if (_pp.z > 1) continue; /* behind camera */
-    const sx = (_pp.x *  0.5 + 0.5) * w;
-    const sy = (_pp.y * -0.5 + 0.5) * h;
-    const dx = sx - clientX, dy = sy - clientY;
-    const dist = Math.hypot(dx, dy);
-    /* projected planet radius in pixels (rough): use camera distance + planet radius */
-    const camDist = camera.position.distanceTo(pl.group.position);
-    const fovRad  = camera.fov * Math.PI / 180;
-    const projR   = (pl.p.radius / Math.max(camDist, 0.001)) * (h / (2 * Math.tan(fovRad / 2)));
-    /* generous click target — at least 50 px around the planet's projected silhouette */
-    const threshold = Math.max(50, projR + 24);
-    if (dist <= threshold) {
-      /* prefer the planet whose silhouette the click falls inside, then by closeness */
-      const score = dist - projR;
-      if (score < bestScore) { bestScore = score; bestPi = i; }
-    }
-  }
-  return bestPi;
-}
-
 renderer.domElement.addEventListener('click', e => {
   if (fly) return;
-  const pi = pickPlanetAt(e.clientX, e.clientY);
+  mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const allMeshes = planets.flatMap(pl => pl.meshes);
+  const hits = raycaster.intersectObjects(allMeshes, false);
+
+  if (!hits.length) return;
+
+  const pi = meshToPlanet.get(hits[0].object);
   if (pi === undefined) return;
 
   let destImg = PLANET_IMAGES[pi];
@@ -755,8 +733,11 @@ renderer.domElement.addEventListener('click', e => {
 });
 
 renderer.domElement.addEventListener('mousemove', e => {
-  const pi = pickPlanetAt(e.clientX, e.clientY);
-  renderer.domElement.style.cursor = pi !== undefined ? 'pointer' : 'default';
+  mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(planets.flatMap(pl => pl.meshes), false);
+  renderer.domElement.style.cursor = hits.length ? 'pointer' : 'default';
 });
 
 /* ══════════════════════════════════════════════════
@@ -1059,9 +1040,9 @@ async function buildScene() {
       meshes = [fb];
     }
 
-    /* invisible hit-sphere — generous click target covering the full planet */
+    /* invisible click-sphere — generous hit target so every planet is easy to click */
     const hit = new THREE.Mesh(
-      new THREE.SphereGeometry(p.radius * 1.35, 16, 12),
+      new THREE.SphereGeometry(Math.max(p.radius * 2.2, 3.5), 12, 8),
       new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
     );
     group.add(hit);
