@@ -983,6 +983,7 @@ function updateLabels() {
     }
     if (fly.t >= 1) { const cb = fly.onComplete; fly = null; controls.enabled = true; if (cb) cb(); }
   }
+  if (!fly && !controls.enabled) controls.enabled = true;
 
   controls.update();
   renderer.render(scene, camera);
