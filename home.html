@@ -720,28 +720,7 @@ renderer.domElement.addEventListener('click', e => {
   const allMeshes = planets.flatMap(pl => pl.meshes);
   const hits = raycaster.intersectObjects(allMeshes, false);
 
-  if (!hits.length) {
-    /* no planet hit — fly toward the clicked point in space */
-    const ray = raycaster.ray;
-    let target;
-    if (Math.abs(ray.direction.y) > 0.0001) {
-      const t = -ray.origin.y / ray.direction.y;
-      if (t > 4 && t < 900) target = ray.origin.clone().addScaledVector(ray.direction, t);
-    }
-    if (!target) target = ray.origin.clone().addScaledVector(ray.direction, 130);
-    const rawDist   = camera.position.distanceTo(target);
-    const hoverDist = Math.min(28, rawDist * 0.45);
-    const dir       = camera.position.clone().sub(target).normalize();
-    controls.enabled = false;
-    fly = {
-      fromCam:    camera.position.clone(),
-      fromTarget: controls.target.clone(),
-      toCam:      target.clone().addScaledVector(dir, hoverDist),
-      toTarget:   target,
-      t: 0,
-    };
-    return;
-  }
+  if (!hits.length) return;
 
   const pi = meshToPlanet.get(hits[0].object);
   if (pi === undefined) return;
@@ -1004,7 +983,6 @@ function updateLabels() {
     }
     if (fly.t >= 1) { const cb = fly.onComplete; fly = null; controls.enabled = true; if (cb) cb(); }
   }
-  if (!fly && !controls.enabled) controls.enabled = true;
 
   controls.update();
   renderer.render(scene, camera);
