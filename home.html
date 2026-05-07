@@ -59,8 +59,39 @@
       text-align: center;
       max-width: 740px;
       width: 92%;
+      position: relative;
       box-shadow: 0 0 80px rgba(210, 175, 110, 0.05),
                   inset 0 0 50px rgba(0, 0, 20, 0.4);
+    }
+    #welcome-close {
+      position: absolute;
+      top: 1rem; right: 1.4rem;
+      background: none; border: none;
+      color: rgba(218, 185, 120, 0.5);
+      font-family: 'Courier Prime', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.3s;
+      padding: 0.3rem 0.6rem;
+    }
+    #welcome-close:hover { color: rgba(230, 200, 140, 1); }
+    #welcome-tips {
+      margin-top: 1.8rem;
+      text-align: left;
+      font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+      color: rgba(237, 232, 216, 0.78);
+      line-height: 1.85;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    #welcome-tips.visible { opacity: 1; }
+    #welcome-tips .tip-key {
+      color: rgba(218, 185, 120, 0.95);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      display: inline-block;
+      min-width: 4.5rem;
     }
 
     /* ── learn-more overlay (same aesthetic as welcome card) ── */
@@ -362,7 +393,14 @@
 
 <div id="welcome-overlay">
   <div id="welcome-card">
+    <button id="welcome-close" title="dismiss">✕</button>
     <p id="welcome-text"><span id="wt"></span><span class="wt-cur" id="wtcur">_</span></p>
+    <div id="welcome-tips">
+      <p style="margin:0 0 0.4rem;"><span class="tip-key">STACK</span> freezes the planets so they stop moving — easier to look around</p>
+      <p style="margin:0 0 0.4rem;"><span class="tip-key">TITLE</span> hides all the labels for a cleaner view</p>
+      <p style="margin:0 0 0.4rem;"><span class="tip-key">ORIENT</span> snaps you back if you get lost in the 3D space</p>
+      <p style="margin:0;"><span class="tip-key">LEARN</span> is for the actual science behind this system (cool stuff)</p>
+    </div>
     <div id="welcome-btns">
       <button class="choice-btn" id="btn-explore">let's explore</button>
     </div>
@@ -1101,23 +1139,26 @@ async function showWelcome() {
   overlay.classList.add('visible');
   await sleep(350);
   await typeWelcome('welcome to my universe.');
-  await sleep(550);
-  await typeWelcome('\n\neach planet is a different aspect of me —\nzoom into whatever you wanna know.');
-  await sleep(550);
-  await typeWelcome('\n\nbottom panel: STACK freezes the orbits,\nTITLE hides the labels, ORIENT resets the view,\nLEARN MORE explains the science behind this.');
+  await sleep(500);
+  await typeWelcome('\n\neach planet is a different part of me —\nclick any one to zoom in.');
   document.getElementById('wtcur').classList.add('off');
-  await sleep(300);
+  await sleep(350);
+  document.getElementById('welcome-tips').classList.add('visible');
+  await sleep(700);
   document.getElementById('welcome-btns').classList.add('visible');
 }
 
 setTimeout(showWelcome, 2500);
 
-document.getElementById('btn-explore').addEventListener('click', () => {
+function dismissWelcome() {
   const overlay = document.getElementById('welcome-overlay');
-  overlay.style.transition = 'opacity 0.6s ease';
+  overlay.style.transition = 'opacity 0.5s ease';
   overlay.classList.remove('visible');
   overlay.addEventListener('transitionend', () => { overlay.style.pointerEvents = 'none'; }, { once: true });
-});
+}
+
+document.getElementById('btn-explore').addEventListener('click', dismissWelcome);
+document.getElementById('welcome-close').addEventListener('click', dismissWelcome);
 
 /* ── ctrl-bar handlers ── */
 

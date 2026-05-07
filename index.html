@@ -72,6 +72,10 @@
       transform: translateY(6px);
       transition: opacity 2s ease, transform 2s ease;
     }
+    /* Riddhi line fades in faster than Steve Jobs */
+    #attr2 {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
 
     /* ── button ── */
     .tour {
@@ -90,7 +94,7 @@
       text-decoration: none;
       opacity: 0;
       transform: translateY(8px);
-      transition: opacity 1.4s ease, transform 1.4s ease,
+      transition: opacity 0.5s ease, transform 0.5s ease,
                   color 0.4s, border-color 0.4s, background 0.4s,
                   box-shadow 0.4s;
     }
@@ -176,12 +180,12 @@ drawStars();
 /* ── animation sequence ── */
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function fadeIn(el, { delay = 0 } = {}) {
+function fadeIn(el, { delay = 0, duration = 1000 } = {}) {
   return new Promise(r => {
     setTimeout(() => {
       el.style.opacity   = '1';
       el.style.transform = 'translateY(0)';
-      setTimeout(r, 1000); /* match transition duration */
+      setTimeout(r, duration); /* match transition duration */
     }, delay);
   });
 }
@@ -216,11 +220,11 @@ async function run() {
   await sleep(1400);
 
   /* 5. "— riddhi gupta" fades in */
-  await fadeIn(document.getElementById('attr2'));
+  await fadeIn(document.getElementById('attr2'), { duration: 500 });
   await sleep(1800);
 
   /* 6. button fades in */
-  await fadeIn(document.getElementById('tour'));
+  await fadeIn(document.getElementById('tour'), { duration: 500 });
 }
 
 run();
