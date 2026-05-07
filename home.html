@@ -391,6 +391,67 @@
     #content-body hr {
       border: none; border-top: 1px solid rgba(210, 175, 110, 0.12); margin: 1.2rem 0;
     }
+    /* ════════════════════════════════════════════════════════
+       MOBILE-ONLY OVERRIDES — desktop is untouched above
+       ════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* nav bar centered at bottom instead of bottom-right */
+      #ctrl-bar {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 18px;
+        padding: 0.5rem 1rem;
+      }
+      .ctrl-btn {
+        padding: 0 0.4rem;
+        letter-spacing: 0.16em;
+      }
+      .ctrl-dot { font-size: 0.6rem; }
+
+      /* welcome card — tighter padding */
+      #welcome-card { padding: 2.2rem 1.6rem; }
+      #welcome-text { font-size: 0.95rem; line-height: 1.55; }
+      #welcome-tips {
+        margin-top: 1.2rem;
+        font-size: 0.78rem;
+        line-height: 1.65;
+      }
+      #welcome-tips .tip-header { font-size: 0.66rem; margin-bottom: 0.6rem; }
+      #welcome-btns { margin-top: 1.6rem; }
+      .choice-btn { padding: 0.55rem 1.6rem; }
+
+      /* planet content card (life/projects/HRC/me/learnings) — way less padding */
+      #content-card {
+        width: 92%;
+        max-height: 86vh;
+        padding: 1.6rem 1.2rem;
+      }
+      #content-body h1 { font-size: 0.92rem; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+      #content-body h2 { font-size: 0.82rem; margin: 1rem 0 0.4rem; }
+      #content-body h3 { font-size: 0.76rem; margin: 0.8rem 0 0.35rem; }
+      #content-body p, #content-body li { font-size: 0.8rem; line-height: 1.65; }
+      #content-body ul, #content-body ol { padding-left: 1.1rem; }
+
+      /* scientific accuracy dialog — keep its existing padding (user said exclude this) */
+      /* (left untouched on purpose) */
+
+      /* planet labels stay readable on small screens */
+      .planet-label {
+        font-size: 0.55rem;
+        padding: 0.25rem 0.7rem;
+        letter-spacing: 0.12em;
+      }
+
+      /* back-to-space button: bottom center on mobile too */
+      #back-btn {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 70px;
+        padding: 0.6rem 1.6rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -518,10 +579,15 @@ document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 
 /* ── camera ── */
-const camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.1, 3000);
+/* mobile: pull camera back + widen FOV so the full solar system fits in portrait */
+const IS_MOBILE = window.innerWidth < 768;
+const CAM_HOME_POS = IS_MOBILE ? new THREE.Vector3(65, 140, 235) : new THREE.Vector3(65, 92, 155);
+const CAM_HOME_TARGET = new THREE.Vector3(65, 0, 0);
+const CAM_FOV = IS_MOBILE ? 78 : 62;
+const camera = new THREE.PerspectiveCamera(CAM_FOV, window.innerWidth / window.innerHeight, 0.1, 3000);
 /* pull back far enough that sun (x=0) + P5 (x≈145) all fit in frame */
-camera.position.set(65, 92, 155);
-camera.lookAt(65, 0, 0);
+camera.position.copy(CAM_HOME_POS);
+camera.lookAt(CAM_HOME_TARGET);
 
 /* ── controls ── */
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -980,8 +1046,8 @@ document.getElementById('back-btn').addEventListener('click', () => {
   /* snap camera to starting formation while overlay is still covering the scene */
   fly = null;
   controls.enabled = true;
-  camera.position.set(65, 92, 155);
-  controls.target.set(65, 0, 0);
+  camera.position.copy(CAM_HOME_POS);
+  controls.target.copy(CAM_HOME_TARGET);
   controls.update();
   oriented = true;
   updateCtrlBar();
@@ -1252,8 +1318,8 @@ document.getElementById('btn-orient').addEventListener('click', () => {
   fly = {
     fromCam:    camera.position.clone(),
     fromTarget: controls.target.clone(),
-    toCam:      new THREE.Vector3(65, 92, 155),
-    toTarget:   new THREE.Vector3(65, 0, 0),
+    toCam:      CAM_HOME_POS.clone(),
+    toTarget:   CAM_HOME_TARGET.clone(),
     t: 0,
     onComplete: () => { oriented = true; updateCtrlBar(); },
   };

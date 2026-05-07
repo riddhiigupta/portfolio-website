@@ -98,6 +98,23 @@
       transition: opacity 0.75s ease-in;
     }
     #fadeout.go { opacity: 1; }
+    /* ════════════════════════════════════════════════════════
+       MOBILE-ONLY OVERRIDES — desktop wormhole untouched above
+       ════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .worm-card {
+        width: 70vw;
+        height: 52vw;
+      }
+      .card-right { right: 8vw; }
+      .card-left  { left:  8vw; }
+      .card-right {
+        transform: translateY(-50%) perspective(220px) rotateY(-26deg) skewY(5deg);
+      }
+      .card-left {
+        transform: translateY(-50%) perspective(220px) rotateY(26deg) skewY(-5deg);
+      }
+    }
   </style>
 </head>
 <body>
