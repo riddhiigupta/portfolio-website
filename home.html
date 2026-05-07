@@ -63,6 +63,40 @@
                   inset 0 0 50px rgba(0, 0, 20, 0.4);
     }
 
+    /* ── learn-more overlay (same aesthetic as welcome card) ── */
+    #learn-overlay {
+      position: fixed; inset: 0; z-index: 115;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    #learn-overlay.visible { opacity: 1; pointer-events: auto; }
+    #learn-card {
+      border: 1px solid rgba(210, 175, 110, 0.38);
+      border-radius: 14px;
+      background: rgba(2, 1, 10, 0.92);
+      padding: 3rem 4.5rem;
+      max-width: 720px;
+      max-height: 78vh;
+      width: 92%;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 0 80px rgba(210, 175, 110, 0.05),
+                  inset 0 0 50px rgba(0, 0, 20, 0.4);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(210, 175, 110, 0.2) transparent;
+    }
+    #learn-close {
+      position: absolute; top: 1rem; right: 1.4rem;
+      background: none; border: none;
+      color: rgba(218, 185, 120, 0.5);
+      font-family: 'Courier Prime', monospace;
+      font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+      letter-spacing: 0.22em; text-transform: lowercase;
+      cursor: pointer; transition: color 0.3s;
+    }
+    #learn-close:hover { color: rgba(230, 200, 140, 1); }
+
     #welcome-text {
       font-family: 'Courier Prime', 'Courier New', monospace;
       font-size: clamp(1.05rem, 2.2vw, 1.35rem);
@@ -330,8 +364,7 @@
   <div id="welcome-card">
     <p id="welcome-text"><span id="wt"></span><span class="wt-cur" id="wtcur">_</span></p>
     <div id="welcome-btns">
-      <button class="choice-btn" id="btn-tour">guided tour</button>
-      <button class="choice-btn" id="btn-free">look around yourself</button>
+      <button class="choice-btn" id="btn-explore">let's explore</button>
     </div>
   </div>
 </div>
@@ -342,6 +375,18 @@
   <button class="ctrl-btn" id="btn-title">title</button>
   <span class="ctrl-dot">&nbsp;·&nbsp;</span>
   <button class="ctrl-btn" id="btn-orient">orient</button>
+  <span class="ctrl-dot">&nbsp;·&nbsp;</span>
+  <button class="ctrl-btn" id="btn-learn">learn more</button>
+</div>
+
+<div id="learn-overlay">
+  <div id="learn-card">
+    <button id="learn-close">✕ close</button>
+    <div id="learn-body">
+      <h2 style="margin-top:0; margin-bottom:1.2rem; color:rgba(237,232,216,0.95); font-size:clamp(1.05rem,1.6vw,1.3rem); letter-spacing:0.18em; text-transform:lowercase; font-weight:700;">about this solar system</h2>
+      <p style="font-size:0.85rem; color:rgba(237,232,216,0.7); line-height:1.7;">content coming soon — the science behind which parts of this system are scientifically possible vs. creative liberty.</p>
+    </div>
+  </div>
 </div>
 
 <div id="planet-overlay">
@@ -1055,9 +1100,11 @@ async function showWelcome() {
   const overlay = document.getElementById('welcome-overlay');
   overlay.classList.add('visible');
   await sleep(350);
-  await typeWelcome('welcome to my space.');
-  await sleep(750);
-  await typeWelcome('\nwould you like to take a guided tour\nor look around yourself?');
+  await typeWelcome('welcome to my universe.');
+  await sleep(550);
+  await typeWelcome('\n\neach planet is a different aspect of me —\nzoom into whatever you wanna know.');
+  await sleep(550);
+  await typeWelcome('\n\nbottom panel: STACK freezes the orbits,\nTITLE hides the labels, ORIENT resets the view,\nLEARN MORE explains the science behind this.');
   document.getElementById('wtcur').classList.add('off');
   await sleep(300);
   document.getElementById('welcome-btns').classList.add('visible');
@@ -1065,11 +1112,7 @@ async function showWelcome() {
 
 setTimeout(showWelcome, 2500);
 
-document.getElementById('btn-tour').addEventListener('click', () => {
-  /* guided tour — logic to be added */
-});
-
-document.getElementById('btn-free').addEventListener('click', () => {
+document.getElementById('btn-explore').addEventListener('click', () => {
   const overlay = document.getElementById('welcome-overlay');
   overlay.style.transition = 'opacity 0.6s ease';
   overlay.classList.remove('visible');
@@ -1089,6 +1132,14 @@ document.getElementById('btn-title').addEventListener('click', () => {
   titlesVisible = !titlesVisible;
   labelEls.forEach(el => el.classList.toggle('visible', titlesVisible));
   updateCtrlBar();
+});
+
+/* learn more: open dialogue with science notes */
+document.getElementById('btn-learn').addEventListener('click', () => {
+  document.getElementById('learn-overlay').classList.add('visible');
+});
+document.getElementById('learn-close').addEventListener('click', () => {
+  document.getElementById('learn-overlay').classList.remove('visible');
 });
 
 /* orient: snap camera to landing POV; planets stay wherever they are */

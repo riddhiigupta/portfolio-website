@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entering...</title>
+
+  <!-- preload solar-system assets so they're cached by the time we exit the wormhole -->
+  <link rel="prefetch" href="home.html" as="document">
+  <link rel="preload" href="models/sun.glb" as="fetch" crossorigin>
+  <link rel="preload" href="models/planet1.glb" as="fetch" crossorigin>
+  <link rel="preload" href="models/planet2.glb" as="fetch" crossorigin>
+  <link rel="preload" href="models/planet3.glb" as="fetch" crossorigin>
+  <link rel="preload" href="models/planet4.glb" as="fetch" crossorigin>
+  <link rel="preload" href="models/planet5.glb" as="fetch" crossorigin>
+  <link rel="modulepreload" href="https://unpkg.com/three@0.160.0/build/three.module.js">
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
