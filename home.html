@@ -78,6 +78,7 @@
     #welcome-tips {
       margin-top: 1.8rem;
       text-align: left;
+      font-family: 'Courier Prime', 'Courier New', monospace;
       font-size: clamp(0.8rem, 1.1vw, 0.9rem);
       color: rgba(237, 232, 216, 0.78);
       line-height: 1.85;
@@ -86,12 +87,18 @@
       transition: opacity 0.8s ease;
     }
     #welcome-tips.visible { opacity: 1; }
+    #welcome-tips .tip-header {
+      text-align: center;
+      color: rgba(218, 185, 120, 0.65);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      font-size: clamp(0.7rem, 1vw, 0.8rem);
+      margin: 0 0 1rem;
+    }
     #welcome-tips .tip-key {
       color: rgba(218, 185, 120, 0.95);
       font-weight: 700;
-      letter-spacing: 0.14em;
-      display: inline-block;
-      min-width: 4.5rem;
+      letter-spacing: 0.12em;
     }
 
     /* ── learn-more overlay (same aesthetic as welcome card) ── */
@@ -396,10 +403,11 @@
     <button id="welcome-close" title="dismiss">✕</button>
     <p id="welcome-text"><span id="wt"></span><span class="wt-cur" id="wtcur">_</span></p>
     <div id="welcome-tips">
-      <p style="margin:0 0 0.4rem;"><span class="tip-key">STACK</span> freezes the planets so they stop moving — easier to look around</p>
+      <p class="tip-header">your controls are at the bottom</p>
+      <p style="margin:0 0 0.4rem;"><span class="tip-key">STACK</span> freezes the planets so they stop moving, easier to look around</p>
       <p style="margin:0 0 0.4rem;"><span class="tip-key">TITLE</span> hides all the labels for a cleaner view</p>
       <p style="margin:0 0 0.4rem;"><span class="tip-key">ORIENT</span> snaps you back if you get lost in the 3D space</p>
-      <p style="margin:0;"><span class="tip-key">LEARN</span> is for the actual science behind this system (cool stuff)</p>
+      <p style="margin:0;"><span class="tip-key">SCIENTIFIC ACCURACY</span> the actual science behind this system (cool stuff)</p>
     </div>
     <div id="welcome-btns">
       <button class="choice-btn" id="btn-explore">let's explore</button>
@@ -408,13 +416,15 @@
 </div>
 
 <div id="ctrl-bar">
+  <button class="ctrl-btn" id="btn-info" title="show intro again" style="font-size:1rem; padding:0 0.55rem;">ⓘ</button>
+  <span class="ctrl-dot">&nbsp;·&nbsp;</span>
   <button class="ctrl-btn" id="btn-stack">stack</button>
   <span class="ctrl-dot">&nbsp;·&nbsp;</span>
   <button class="ctrl-btn" id="btn-title">title</button>
   <span class="ctrl-dot">&nbsp;·&nbsp;</span>
   <button class="ctrl-btn" id="btn-orient">orient</button>
   <span class="ctrl-dot">&nbsp;·&nbsp;</span>
-  <button class="ctrl-btn" id="btn-learn">learn more</button>
+  <button class="ctrl-btn" id="btn-learn">scientific accuracy</button>
 </div>
 
 <div id="learn-overlay">
@@ -1140,7 +1150,7 @@ async function showWelcome() {
   await sleep(350);
   await typeWelcome('welcome to my universe.');
   await sleep(500);
-  await typeWelcome('\n\neach planet is a different part of me —\nclick any one to zoom in.');
+  await typeWelcome('\n\neach planet is a different part of me,\nclick any one to zoom in.');
   document.getElementById('wtcur').classList.add('off');
   await sleep(350);
   document.getElementById('welcome-tips').classList.add('visible');
@@ -1153,12 +1163,26 @@ setTimeout(showWelcome, 2500);
 function dismissWelcome() {
   const overlay = document.getElementById('welcome-overlay');
   overlay.style.transition = 'opacity 0.5s ease';
+  overlay.style.pointerEvents = '';
   overlay.classList.remove('visible');
   overlay.addEventListener('transitionend', () => { overlay.style.pointerEvents = 'none'; }, { once: true });
 }
 
+/* re-show welcome instantly (no typewriter) when user clicks the info icon */
+function reshowWelcome() {
+  document.getElementById('wt').textContent = 'welcome to my universe.\n\neach planet is a different part of me,\nclick any one to zoom in.';
+  document.getElementById('wtcur').classList.add('off');
+  document.getElementById('welcome-tips').classList.add('visible');
+  document.getElementById('welcome-btns').classList.add('visible');
+  const overlay = document.getElementById('welcome-overlay');
+  overlay.style.transition = 'opacity 0.4s ease';
+  overlay.style.pointerEvents = '';
+  overlay.classList.add('visible');
+}
+
 document.getElementById('btn-explore').addEventListener('click', dismissWelcome);
 document.getElementById('welcome-close').addEventListener('click', dismissWelcome);
+document.getElementById('btn-info').addEventListener('click', reshowWelcome);
 
 /* ── ctrl-bar handlers ── */
 
