@@ -219,16 +219,16 @@ async function run() {
   /* 3. cursor disappears */
   document.getElementById('cur').classList.add('off');
 
-  /* 4. "— steve jobs" appears 1s after the quote finishes */
-  await sleep(1000);
+  /* 4. "— steve jobs" appears 2s after the quote finishes */
+  await sleep(2000);
   startFade(document.getElementById('attr1'));
 
-  /* 5. "— riddhi gupta" appears 0.5s after steve */
-  await sleep(500);
+  /* 5. "— riddhi gupta" appears 1s after steve */
+  await sleep(1000);
   startFade(document.getElementById('attr2'));
 
-  /* 6. button appears 0.3s after riddhi */
-  await sleep(300);
+  /* 6. button appears 1s after riddhi */
+  await sleep(1000);
   startFade(document.getElementById('tour'));
 }
 
