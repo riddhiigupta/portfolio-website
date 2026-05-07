@@ -202,6 +202,11 @@ async function typewrite(text, speed = 105) {
   }
 }
 
+function startFade(el) {
+  el.style.opacity   = '1';
+  el.style.transform = 'translateY(0)';
+}
+
 async function run() {
   /* 1. quote container fades in */
   await sleep(500);
@@ -213,18 +218,18 @@ async function run() {
 
   /* 3. cursor disappears */
   document.getElementById('cur').classList.add('off');
-  await sleep(1800);
 
-  /* 4. "— steve jobs" fades in */
-  await fadeIn(document.getElementById('attr1'));
-  await sleep(1400);
+  /* 4. "— steve jobs" appears 1s after the quote finishes */
+  await sleep(1000);
+  startFade(document.getElementById('attr1'));
 
-  /* 5. "— riddhi gupta" fades in */
-  await fadeIn(document.getElementById('attr2'), { duration: 500 });
-  await sleep(1800);
+  /* 5. "— riddhi gupta" appears 0.5s after steve */
+  await sleep(500);
+  startFade(document.getElementById('attr2'));
 
-  /* 6. button fades in */
-  await fadeIn(document.getElementById('tour'), { duration: 500 });
+  /* 6. button appears 0.3s after riddhi */
+  await sleep(300);
+  startFade(document.getElementById('tour'));
 }
 
 run();

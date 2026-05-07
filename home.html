@@ -443,15 +443,20 @@
         letter-spacing: 0.12em;
       }
 
-      /* back-to-space button: top-center on mobile so it doesn't overlap content */
+      /* back-to-space button: bottom-center on mobile, above the ctrl-bar */
       #back-btn {
-        top: 16px;
-        bottom: auto;
+        top: auto;
+        bottom: 70px;
         right: auto;
         left: 50%;
         transform: translateX(-50%);
         padding: 0.45rem 1.4rem;
         font-size: 0.7rem;
+      }
+      /* shrink content card so back-btn doesn't overlap it on mobile */
+      #content-card {
+        max-height: 70vh;
+        margin-bottom: 6.5rem; /* leaves space at the bottom for back-btn + ctrl-bar */
       }
 
       /* p2 (and any 2-col grid using inline 1fr 1fr): stack to 1 column on mobile */
@@ -931,6 +936,9 @@ const meshToPlanet = new Map();     /* mesh → planet index */
 function easeIO(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
 let fly = null;
 
+/* tracks whether we're inside a planet view, for browser-back support */
+let inPlanet = false;
+
 function flyToPlanet(pi, destImg) {
   if (fly) return;
   const pl   = planets[pi];
@@ -938,6 +946,11 @@ function flyToPlanet(pi, destImg) {
   oriented   = false;
   updateCtrlBar();
   controls.enabled = false;
+  /* push a history state so the browser back button closes the planet view */
+  if (!inPlanet) {
+    history.pushState({ planet: true }, '');
+    inPlanet = true;
+  }
   fly = {
     fromCam:    camera.position.clone(),
     fromTarget: controls.target.clone(),
@@ -1093,7 +1106,7 @@ function hideContentCard() {
   overlay.classList.remove('visible');
 }
 
-document.getElementById('back-btn').addEventListener('click', () => {
+function closePlanetOverlay() {
   const overlay = document.getElementById('planet-overlay');
   const imgEl   = document.getElementById('dest-img');
   const canvas  = document.getElementById('turb-canvas');
@@ -1113,6 +1126,19 @@ document.getElementById('back-btn').addEventListener('click', () => {
     canvas.style.display                              = 'block';
     document.getElementById('back-btn').style.display = 'none';
   }, 900);
+}
+
+/* back-btn → trigger browser back, popstate handler does the actual close.
+   keeps history in sync whether user clicks the button or uses browser back. */
+document.getElementById('back-btn').addEventListener('click', () => {
+  if (inPlanet) history.back(); else closePlanetOverlay();
+});
+
+window.addEventListener('popstate', () => {
+  if (inPlanet) {
+    inPlanet = false;
+    closePlanetOverlay();
+  }
 });
 
 /* ══════════════════════════════════════════════════

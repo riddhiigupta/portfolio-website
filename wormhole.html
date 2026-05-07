@@ -284,21 +284,28 @@ const CYCLE = FADE + HOLD;   /* 880ms per card */
 const SEQ = ['c1','c2','c3','c4','c5'];
 const T0  = ENTRY_MS + 80;   /* first card appears just after entry (600ms) */
 
-SEQ.forEach((id, i) => {
-  const el = document.getElementById(id);
-  setTimeout(() => el.classList.add('visible'), T0 + i * CYCLE);
-  setTimeout(() => {
-    el.classList.remove('visible');
-    el.classList.add('receding');
-  }, T0 + (i + 1) * CYCLE);
-});
+/* if user navigated here via back button, don't auto-redirect — let them
+   press back again to reach the landing page. tunnel keeps animating. */
+const navEntries = performance.getEntriesByType('navigation');
+const navType = navEntries.length ? navEntries[0].type : 'navigate';
 
-/* exit: last card fades out + small buffer, then white burst */
-const T_EXIT = T0 + SEQ.length * CYCLE + 400;
-setTimeout(() => {
-  document.getElementById('fadeout').classList.add('go');
-  setTimeout(() => { window.location.href = 'home.html'; }, 800);
-}, T_EXIT);
+if (navType !== 'back_forward') {
+  SEQ.forEach((id, i) => {
+    const el = document.getElementById(id);
+    setTimeout(() => el.classList.add('visible'), T0 + i * CYCLE);
+    setTimeout(() => {
+      el.classList.remove('visible');
+      el.classList.add('receding');
+    }, T0 + (i + 1) * CYCLE);
+  });
+
+  /* exit: last card fades out + small buffer, then white burst */
+  const T_EXIT = T0 + SEQ.length * CYCLE + 400;
+  setTimeout(() => {
+    document.getElementById('fadeout').classList.add('go');
+    setTimeout(() => { window.location.href = 'home.html'; }, 800);
+  }, T_EXIT);
+}
 </script>
 </body>
 </html>
