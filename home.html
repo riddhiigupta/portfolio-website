@@ -939,6 +939,11 @@ let fly = null;
 /* tracks whether we're inside a planet view, for browser-back support */
 let inPlanet = false;
 
+/* push a sentinel state on load so the first browser-back doesn't leave the
+   solar system. If the user presses back while not inside a planet, we just
+   re-push the state to keep them here. */
+history.pushState({ stage: 'home' }, '');
+
 function flyToPlanet(pi, destImg) {
   if (fly) return;
   const pl   = planets[pi];
@@ -1138,6 +1143,9 @@ window.addEventListener('popstate', () => {
   if (inPlanet) {
     inPlanet = false;
     closePlanetOverlay();
+  } else {
+    /* user pressed back from the solar system, re-push to keep them here */
+    history.pushState({ stage: 'home' }, '');
   }
 });
 
