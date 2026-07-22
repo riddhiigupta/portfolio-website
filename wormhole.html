@@ -78,14 +78,13 @@
     #c2 { top: 57%; }   /* left  — below centre */
     #c3 { top: 55%; }   /* right — below centre */
     #c4 { top: 36%; }   /* left  — above centre */
-    #c5 { top: 41%; }   /* right — slightly above */
 
     /* per-card object-position fine-tuning */
     #c1 img { object-position: 30% 20%; }   /* Elon — face left-center */
-    #c2 img { object-position: 62% 30%; }   /* Hackathon — people right-center */
+    /* c2 — new photo: reduce the overscan zoom so it's cropped less */
+    #c2 img { object-position: 50% 40%; width: 100%; height: 100%; top: 0; }
     #c3 img { object-position: 48% 28%; }   /* C00 — center */
     #c4 img { object-position: 58% 14%; }   /* Steve Jobs — face upper-right */
-    #c5 img { object-position: 38% 28%; }   /* AMD — Riddhi center of group */
 
     /* tunnel exit — burst to white like you punched through the end */
     #fadeout {
@@ -122,10 +121,9 @@
 <canvas id="tunnel"></canvas>
 <div class="vignette"></div>
 
-<!-- RIGHT: 1 Elon, 3 C00, 5 photo -->
+<!-- RIGHT: 1 Elon, 3 C00 -->
 <div class="worm-card card-right" id="c1"><img src="images/elon.jpeg"      alt="Elon Musk"></div>
 <div class="worm-card card-right" id="c3"><img src="images/c00.jpeg"       alt=""></div>
-<div class="worm-card card-right" id="c5"><img src="images/img4493.jpeg"  alt=""></div>
 
 <!-- LEFT: 2 photo, 4 Steve Jobs -->
 <div class="worm-card card-left"  id="c2"><img src="images/img4489.jpeg"  alt=""></div>
@@ -270,7 +268,7 @@ function drawFrame() {
 requestAnimationFrame(drawEntry);
 
 /* ══════════════════════════════════════════════════════
-   GLIMPSE SEQUENCE — 6 cards, fast cross-fade
+   GLIMPSE SEQUENCE — 4 cards, fast cross-fade
    New card starts exactly as previous begins fading out.
    FADE = CSS transition duration (0.38s → 380ms)
    HOLD = time each card stays fully visible
@@ -280,8 +278,8 @@ const FADE  = 600;
 const HOLD  = 280;
 const CYCLE = FADE + HOLD;   /* 880ms per card */
 
-/* sequence in display order: c1→c2→c3→c4→c5 */
-const SEQ = ['c1','c2','c3','c4','c5'];
+/* sequence in display order: c1→c2→c3→c4 */
+const SEQ = ['c1','c2','c3','c4'];
 const T0  = ENTRY_MS + 80;   /* first card appears just after entry (600ms) */
 
 /* if user navigated here via back button, don't auto-redirect — let them
